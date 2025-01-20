@@ -1,0 +1,102 @@
+INPUT pipeline dictionary: 
+{'scaler': StandardScaler(), 'lr': GradientBoostingClassifier()}
+OUTPUT string: 
+'model = pipeline.named_steps['lr']\n
+scaler = pipeline.named_steps['scaler']\n
+edited_dataset = scaler.transform(sql_dataset)\n
+explainer = shap.TreeExplainer(model)'
+
+
+INPUT pipeline dictionary:
+{'scaler': MinMaxScaler(), 'rf': RandomForestClassifier()}
+OUTPUT string:
+'model = pipeline.named_steps['rf']\n
+scaler = pipeline.named_steps['scaler']\n
+edited_dataset = scaler.transform(sql_dataset)\n
+explainer = shap.TreeExplainer(model)'
+
+
+INPUT pipeline dictionary:
+{'poly': PolynomialFeatures(degree=2), 'lr': LinearRegression()}
+OUTPUT string:
+'model = pipeline.named_steps['lr']\n
+poly = pipeline.named_steps['poly']\n
+edited_dataset = poly.transform(sql_dataset)\n
+explainer = shap.LinearExplainer(model, edited_dataset)'
+
+
+INPUT pipeline dictionary:
+{'tfidf': TfidfVectorizer(), 'lr': LogisticRegression()}
+OUTPUT string:
+'model = pipeline.named_steps['lr']\n
+tfidf = pipeline.named_steps['tfidf']\n
+edited_dataset = tfidf.transform(sql_dataset)\n
+explainer = shap.LinearExplainer(model, edited_dataset)'
+
+
+INPUT pipeline dictionary:
+{'pca': PCA(n_components=5), 'lr': LogisticRegression()}
+OUTPUT string:
+'model = pipeline.named_steps['lr']\n
+pca = pipeline.named_steps['pca']\n
+edited_dataset = pca.transform(sql_dataset)\n
+explainer = shap.LinearExplainer(model, edited_dataset)'
+
+
+INPUT pipeline dictionary:
+{'imputer': SimpleImputer(strategy='mean'), 'knn': KNeighborsClassifier()}
+OUTPUT string:
+'model = pipeline.named_steps['knn']\n
+imputer = pipeline.named_steps['imputer']\n
+edited_dataset = imputer.transform(sql_dataset)\n
+explainer = shap.KernelExplainer(model, edited_dataset)'
+
+
+INPUT pipeline dictionary:
+{'scaler': RobustScaler(), 'svc': SVC()}
+OUTPUT string:
+'model = pipeline.named_steps['svc']\n
+scaler = pipeline.named_steps['scaler']\n
+edited_dataset = scaler.transform(sql_dataset)\n
+explainer = shap.KernelExplainer(model, edited_dataset)'
+
+
+INPUT pipeline dictionary:
+{'feature_selection': SelectFromModel(ExtraTreesClassifier()),'et': ExtraTreesClassifier()}
+OUTPUT string:
+'model = pipeline.named_steps['et']\n
+feature_selection = pipeline.named_steps['feature_selection']\n
+edited_dataset = feature_selection.transform(sql_dataset)\n
+explainer = shap.TreeExplainer(model)'
+
+
+INPUT pipeline dictionary:
+{
+    'preprocessor': ColumnTransformer([
+        ('num', StandardScaler(), ['numerical_feature_1', 'numerical_feature_2']),
+        ('cat', OneHotEncoder(), ['categorical_feature'])
+    ]),
+    'gb': GradientBoostingClassifier()
+}
+OUTPUT string:
+'preprocessor = pipeline.named_steps['preprocessor']\n
+model = pipeline.named_steps['gb']\n
+edited_dataset = preprocessor.transform(sql_dataset)\n
+explainer = shap.TreeExplainer(model)'
+
+
+INPUT pipeline dictionary:
+{
+    'preprocessor': {
+        'scaler': 'StandardScaler',
+        'ohe': 'OneHotEncoder'
+    },
+    'classifier': 'GradientBoostingClassifier'
+}
+OUTPUT string:
+'scaler = pipeline.named_steps['preprocessor'].named_steps['scaler']\n
+edited_dataset = scaler.transform(sql_dataset)\n
+ohe = pipeline.named_steps['preprocessor'].named_steps['ohe']\n
+edited_dataset = ohe.transform(edited_dataset)\n
+model = pipeline.named_steps['gb']\n
+explainer = shap.TreeExplainer(model)'
