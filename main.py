@@ -28,6 +28,7 @@ uploaded_model = None
 uploaded_dataset = None
 user_query = ""
 label_name = ""
+sample_ID = ""
 conversation_history = []  # Stores the conversation
 
 # Load the ML model from a .pkl file
@@ -44,7 +45,6 @@ def load_dataset(file):
     global uploaded_dataset
     try:
         uploaded_dataset = pd.read_csv(file.name)
-        uploaded_dataset.rename(columns={"Unnamed: 0": "ID"}, inplace=True) # HARD CODED
         return f"Dataset loaded successfully with {uploaded_dataset.shape[0]} rows and {uploaded_dataset.shape[1]} columns."
     except Exception as e:
         return f"Failed to load dataset: {e}"
@@ -59,10 +59,11 @@ def validate_api_key(api_key):
         return "Invalid API key format. Please enter a valid OpenAI API key."
 
 # Store user query and label, then generate a response based on the team's code
-def store_query_and_label(query, label):
-    global user_query, label_name, conversation_history
+def store_query_and_label(query, label, ID):
+    global user_query, label_name, conversation_history, sample_ID
     user_query = query
     label_name = label
+    sample_ID = ID
     conversation_history.append({"user": user_query, "bot": "Processing response..."})  # Placeholder for the response
 
     # Assuming your team has logic to generate a natural language response based on these variables:    # extracting the dataset name
@@ -81,13 +82,13 @@ def store_query_and_label(query, label):
     update_query, retrieve_query = filter_to_sql(openai.api_key, data_context, filter_representation)
 
     # getting SHAP values and relevant datasets
-    before_dataset, shap_values_before, after_dataset, shap_values_after = calc_SHAP(transformations, model, uploaded_dataset, dataset_name, update_query, retrieve_query)
+    before_dataset, shap_values_before, after_dataset, shap_values_after = calc_SHAP(transformations, model, uploaded_dataset, dataset_name, update_query, retrieve_query, label_name, sample_ID)
 
     # getting final predictions and aggregate statistics
-    final_dataset_before, summary_stats_before, final_dataset_after, summary_stats_after = pred_and_stats(uploaded_model, before_dataset, after_dataset)
+    final_dataset_before, summary_stats_before, final_dataset_after, summary_stats_after = pred_and_stats(uploaded_model, before_dataset, after_dataset, label_name, sample_ID)
 
     # getting relevant importance tables
-    importance_table_before, importance_table_after, feature_names = final_importance(shap_values_before, shap_values_after, final_dataset_after)
+    importance_table_before, importance_table_after, feature_names = final_importance(shap_values_before, shap_values_after, final_dataset_after, label_name, sample_ID)
 
     # getting the final response
     response = ml_to_natural_language(shap_values_before, shap_values_after, feature_names, user_query, filter_representation, final_dataset_before, final_dataset_after, importance_table_before, importance_table_after, summary_stats_after, openai.api_key)
@@ -178,6 +179,8 @@ def create_interface():
                     dataset_upload = gr.File(label="Upload Dataset (.csv)", file_types=[".csv"])
         api_key_input = gr.Textbox(label="Enter ChatGPT API Key", placeholder="Enter your OpenAI API key here", type="password")
         label_input = gr.Textbox(label="Label Name", placeholder="Type the label name here...", lines=1)  # Label Name input box
+        sample_ID = gr.Textbox(label="Sample ID", placeholder="Type the name of the column containing sample IDs here...", lines=1)  # Sample ID input box
+
 
         # Status section in its own box
         with gr.Row():
@@ -195,7 +198,8 @@ def create_interface():
         model_upload.change(load_model, inputs=model_upload, outputs=model_status)
         dataset_upload.change(load_dataset, inputs=dataset_upload, outputs=dataset_status)
         api_key_input.change(validate_api_key, inputs=api_key_input, outputs=api_key_status)  # Validate the API key
-        submit_btn.click(store_query_and_label, inputs=[user_input, label_input], outputs=chat_box)
+        submit_btn.click(store_query_and_label, inputs=[user_input, label_input, sample_ID], outputs=chat_box)
+
 
     return demo
 

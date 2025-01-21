@@ -43,10 +43,10 @@ def get_importance_table(shap_values, feature_names):
 
 
 # function to get relevant importance tables
-def final_importance(shap_values_before, shap_values_after, final_dataset_after):
+def final_importance(shap_values_before, shap_values_after, final_dataset_after, label_name, sample_ID):
 
     # extracting the feature names
-    shap_frame = final_dataset_after.drop(columns = ['ID','prediction','y'])
+    shap_frame = final_dataset_after.drop(columns = [sample_ID, 'prediction', label_name])
     feature_names = list(shap_frame.columns)
 
     if shap_values_before is None:

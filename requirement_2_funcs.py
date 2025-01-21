@@ -74,8 +74,6 @@ def query_to_filter(openai_api_key, data_context, user_query):
         'filter_examples': filter_examples
     })
 
-    print('---------------------------------')
-    print(filter_representation.content)
     return filter_representation.content
 
 
@@ -140,9 +138,6 @@ def filter_to_sql(openai_api_key, data_context, filter_representation):
         update_query = queries[0].strip()
         retrieve_query = queries[0].strip()
 
-    print('---------------------------------')
-    print(update_query)
-    print(retrieve_query)
     return update_query, retrieve_query
 
 
@@ -159,7 +154,7 @@ def pipeline_extract(pipeline):
 
 
 # function to get SHAP values and relevant datasets
-def calc_SHAP(transformations, model, dataset, dataset_name, update_query, retrieve_query):
+def calc_SHAP(transformations, model, dataset, dataset_name, update_query, retrieve_query, label_name, sample_ID):
 
     # extracting model and SHAP variables
     if 'UPDATE' in update_query:
@@ -173,7 +168,7 @@ def calc_SHAP(transformations, model, dataset, dataset_name, update_query, retri
         cursor.execute(retrieve_query)
         connection.commit()
         before_dataset = pd.read_sql(retrieve_query, connection)
-        sql_dataset = before_dataset.iloc[:, 1:-1]  # HARD CODED
+        sql_dataset = before_dataset.drop(columns=[sample_ID, label_name])
         sql_dataset_transformed = transformations.fit_transform(sql_dataset)
 
         # extracting an explainer
@@ -197,7 +192,7 @@ def calc_SHAP(transformations, model, dataset, dataset_name, update_query, retri
         cursor.execute(update_query)
         connection.commit()
         after_dataset = pd.read_sql(retrieve_query, connection)
-        sql_dataset = after_dataset.iloc[:, 1:-1]  # HARD CODED
+        sql_dataset = after_dataset.drop(columns=[sample_ID, label_name])
         sql_dataset_transformed = transformations.fit_transform(sql_dataset)
 
         # extracting an explainer
@@ -226,7 +221,7 @@ def calc_SHAP(transformations, model, dataset, dataset_name, update_query, retri
         cursor.execute(update_query)
         connection.commit()
         after_dataset = pd.read_sql(update_query, connection)
-        sql_dataset = after_dataset.iloc[:, 1:-1]  # HARD CODED
+        sql_dataset = after_dataset.drop(columns=[sample_ID, label_name])
         sql_dataset_transformed = transformations.fit_transform(sql_dataset)
 
         # extracting an explainer
@@ -249,11 +244,11 @@ def calc_SHAP(transformations, model, dataset, dataset_name, update_query, retri
 
 
 # function for making final prediction and getting aggregate statistics
-def pred_and_stats(pipeline, before_dataset, after_dataset):
+def pred_and_stats(pipeline, before_dataset, after_dataset, label_name, sample_ID):
 
     if before_dataset is None:
         # making and appending predictions if no values were updated
-        predictions_after = pipeline.predict(after_dataset.iloc[:, 1:-1]) # HARD CODED
+        predictions_after = pipeline.predict(after_dataset.drop(columns=[sample_ID, label_name]))
         predictions_after_df = pd.DataFrame(predictions_after, columns=['prediction'])
         final_dataset_before = None
         final_dataset_after = pd.concat([after_dataset, predictions_after_df], axis=1)
@@ -266,12 +261,12 @@ def pred_and_stats(pipeline, before_dataset, after_dataset):
 
     else:
         # making and appending predictions before values were updated
-        predictions_before = pipeline.predict(before_dataset.iloc[:, 1:-1]) # HARD CODED
+        predictions_before = pipeline.predict(before_dataset.drop(columns=[sample_ID, label_name]))
         predictions_before_df = pd.DataFrame(predictions_before, columns=['prediction'])
         final_dataset_before = pd.concat([before_dataset, predictions_before_df], axis=1)
 
         # making and appending predictions after values were updated
-        predictions_after = pipeline.predict(after_dataset.iloc[:, 1:-1]) # HARD CODED
+        predictions_after = pipeline.predict(after_dataset.drop(columns=[sample_ID, label_name]))
         predictions_after_df = pd.DataFrame(predictions_after, columns=['prediction'])
         final_dataset_after = pd.concat([after_dataset, predictions_after_df], axis=1)
 
