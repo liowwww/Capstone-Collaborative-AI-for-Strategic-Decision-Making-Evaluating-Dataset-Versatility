@@ -31,8 +31,20 @@ label_name = ""
 sample_ID = ""
 conversation_history = []  # Stores the conversation
 
+
+
 # Load the ML model from a .pkl file
 def load_model(file):
+    """
+    Load a machine learning model from a .pkl file.
+
+    Args:
+        file (File-like object): The file containing the pickled model.
+
+    Returns:
+        str: A message indicating whether the model was loaded successfully or an error occurred.
+    """
+
     global uploaded_model
     try:
         uploaded_model = joblib.load(file.name)
@@ -40,8 +52,21 @@ def load_model(file):
     except Exception as e:
         return f"Failed to load model: {e}"
 
+
+
 # Load the dataset from a CSV file
 def load_dataset(file):
+    """
+    Load a dataset from a CSV file.
+
+    Args:
+        file (File-like object): The file containing the dataset in CSV format.
+
+    Returns:
+        str: A message indicating whether the dataset was loaded successfully or an error occurred,
+             including the shape of the loaded dataset if successful.
+    """
+    
     global uploaded_dataset
     try:
         uploaded_dataset = pd.read_csv(file.name)
@@ -49,8 +74,19 @@ def load_dataset(file):
     except Exception as e:
         return f"Failed to load dataset: {e}"
 
+
+
 # Validate the format of the API key
 def validate_api_key(api_key):
+    """
+    Validate the format of an OpenAI API key.
+
+    Args:
+        api_key (str): The API key to validate.
+
+    Returns:
+        str: A message indicating whether the API key is valid or invalid.
+    """
     # Match a key that starts with 'sk-proj-' followed by a mix of letters, digits, underscores, and hyphens
     if re.match(r"^sk-proj-[A-Za-z0-9_-]+$", api_key):  
         openai.api_key = api_key  # Set the API key if valid
@@ -58,8 +94,22 @@ def validate_api_key(api_key):
     else:
         return "Invalid API key format. Please enter a valid OpenAI API key."
 
+
+
 # Store user query and label, then generate a response based on the team's code
 def store_query_and_label(query, label, ID):
+    """
+    Store a user query, label, and sample ID, then generate a response based on the loaded model and dataset.
+
+    Args:
+        query (str): The user's query in natural language.
+        label (str): The label column name to analyze.
+        ID (str): The sample ID for specific data retrieval.
+
+    Returns:
+        str: A formatted conversation history in HTML, including the user's query and the chatbot's response.
+    """
+
     global user_query, label_name, conversation_history, sample_ID
     user_query = query
     label_name = label
@@ -70,16 +120,16 @@ def store_query_and_label(query, label, ID):
     dataset_name = 'the_dataset'
 
     # getting datacontext
-    data_context = get_dataframe_schema(uploaded_dataset, dataset_name)
+    schema_with_examples = get_dataframe_schema(uploaded_dataset, dataset_name)
 
     # extracting model from pipeline and generating code, this needs to be run only once at the beginning
     transformations, model = pipeline_extract(uploaded_model)
 
     # getting filter representation
-    filter_representation = query_to_filter(openai.api_key, data_context, user_query)
+    filter_representation = query_to_filter(openai.api_key, schema_with_examples, user_query)
 
     # getting sql code
-    update_query, retrieve_query = filter_to_sql(openai.api_key, data_context, filter_representation)
+    update_query, retrieve_query = filter_to_sql(openai.api_key, schema_with_examples, filter_representation)
 
     # getting SHAP values and relevant datasets
     before_dataset, shap_values_before, after_dataset, shap_values_after = calc_SHAP(transformations, model, uploaded_dataset, dataset_name, update_query, retrieve_query, label_name, sample_ID)
@@ -91,7 +141,7 @@ def store_query_and_label(query, label, ID):
     importance_table_before, importance_table_after, feature_names = final_importance(shap_values_before, shap_values_after, final_dataset_after, label_name, sample_ID)
 
     # getting the final response
-    response = ml_to_natural_language(shap_values_before, shap_values_after, feature_names, user_query, filter_representation, final_dataset_before, final_dataset_after, importance_table_before, importance_table_after, summary_stats_after, openai.api_key)
+    response = ml_to_natural_language(shap_values_before, shap_values_after, feature_names, user_query, filter_representation, final_dataset_before, final_dataset_after, importance_table_before, importance_table_after, summary_stats_after, openai.api_key, label_name, sample_ID)
     conversation_history[-1]["bot"] = response  # Update the last response
 
     # Display the conversation history with bubble styles
