@@ -141,6 +141,12 @@ def ml_to_natural_language(
     # Adjust the filter representation
     final_filter_representation = filter_representation.replace("[E]", "").strip()
 
+    # reduce table if feature importanc not required
+    if 'important' not in final_filter_representation:
+        final_dataset_before = final_dataset_before.loc[:, [sample_ID, 'prediction', label_name]] if final_dataset_before is not None else None
+        final_dataset_after = final_dataset_after.loc[:, [sample_ID, 'prediction', label_name]]
+
+
     # Create DataFrames for SHAP values
     shap_table_before = pd.DataFrame(shap_values_before, columns=feature_names) if shap_values_before is not None else None
     shap_table_after = pd.DataFrame(shap_values_after, columns=feature_names)
@@ -206,10 +212,10 @@ def ml_to_natural_language(
             'shap_values_before': shap_table_before,
             'shap_values_after': shap_table_after,
             'final_filter_representation': final_filter_representation,
-            'final_dataset_before': final_dataset_before, #.loc[:, [sample_ID, 'prediction', label_name]] if final_dataset_before is not None else None,
-            'final_dataset_after': final_dataset_after, #.loc[:, [sample_ID, 'prediction', label_name]],
-            'importance_table_before': importance_table_before, #.head(6) if importance_table_before is not None else None,
-            'importance_table_after': importance_table_after, #.head(6),
+            'final_dataset_before': final_dataset_before, 
+            'final_dataset_after': final_dataset_after,
+            'importance_table_before': importance_table_before, 
+            'importance_table_after': importance_table_after,
             'summary_stats_after': summary_stats_after.loc[['count', 'mean', 'max', 'min']],
         })
     except Exception as e:
