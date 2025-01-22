@@ -1,0 +1,15 @@
+SELECT * FROM table_name WHERE missedpayments = 0;\nSELECT * FROM table_name;
+SELECT * FROM table_name WHERE age > 30;\nSELECT * FROM table_name;
+SELECT * FROM table_name;\nSELECT * FROM table_name;
+UPDATE table_name SET unemployed = 1;\nSELECT * FROM table_name;
+UPDATE table_name SET age = age - 5 WHERE unemployed = 1;\nSELECT * FROM table_name WHERE unemployed = 1;
+SELECT * FROM table_name WHERE loanpurposenewcar = 1;\nSELECT * FROM table_name;
+SELECT * FROM table_name;\nSELECT * FROM table_name;
+SELECT * FROM table_name WHERE id = 45;\nSELECT * FROM table_name;
+SELECT * FROM table_name;\nSELECT * FROM table_name;
+SELECT * FROM table_name WHERE nocurrentloan = 1 AND ownshouse = FALSE;\nSELECT * FROM table_name;
+SELECT * FROM table_name;\nSELECT * FROM table_name; 
+SELECT * FROM table_name WHERE y = 1 AND prediction = 0;\nSELECT * FROM table_name;
+SELECT * FROM table_name WHERE loanpurposebusiness = 1 AND age > 40;\nSELECT * FROM table_name;
+UPDATE table_name SET loanduration = loanduration + 2;\nSELECT * FROM table_name;
+SELECT * FROM table_name WHERE loanpurposehomeappliances = 1;\nSELECT * FROM table_name;

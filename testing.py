@@ -36,7 +36,6 @@ with open(pipeline_path, 'rb') as file:
 # dataset, hard coded for now
 dataset_path = r'sustainability_model_dataset\Sustainable_Energy_Invest_Forecast_Data_Reduced.csv'
 dataset = pd.read_csv(dataset_path)
-dataset.rename(columns={"Unnamed: 0": "ID"}, inplace=True) # HARD CODED
 
 # extracting the dataset name
 dataset_name = 'the_dataset'

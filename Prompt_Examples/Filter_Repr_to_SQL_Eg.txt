@@ -122,8 +122,8 @@ Filter Repr: filter age greater than 76 and change loanamount decrease 1000 and 
 Update/Filter Code: UPDATE table_name SET loanamount = loanamount - 1000 WHERE age > 76;
 Retrieval Code: SELECT * FROM table_name;  
 
-Filter Repr: filter labelfilter 1 and filter predictionfilter 0 and predict [E]
-Update/Filter Code: SELECT * FROM table_name WHERE labelfilter = 1 AND predictionfilter = 0;
+Filter Repr: filter y 1 and filter predictionfilter 0 and predict [E]
+Update/Filter Code: SELECT * FROM table_name WHERE y = 1 AND prediction = 0;
 Retrieval Code: SELECT * FROM table_name;
 
 Filter Repr: filter id 34 and explain cfe [E]

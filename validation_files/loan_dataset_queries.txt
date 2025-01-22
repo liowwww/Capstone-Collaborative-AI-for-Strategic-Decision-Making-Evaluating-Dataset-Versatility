@@ -1,0 +1,15 @@
+What is your logic for determining if people with no missed payments are good credit risk?
+Can people older than 30 have a good credit risk?
+Can you list the top three important features for the model's predictions in the data?
+If people in the data were unemployed, how important would their age and loan amount features be for predicting credit risk?
+Assuming that the age of unemployment is decreased by 5 years, what would the prediction be?
+How many numbers of instances in data when asking for a new car?
+What is the average age in the data?
+What are the top 5 features influencing the prediction for clients with id 45?
+could you describe the data?
+What is the average loan amount for people without current loans and that do not own a house?
+How accurate are you at predicting whether people are good or not at credit risk?
+predictions on instances that are labeled good credit risk but the model predicts them bad credit risk?
+What are the real labels for those asking for business loans and that are older than 40?
+In the dataset, if the loan term were to be increased by 2 years, what would the predictions for the data be?
+How accurate are you at predicting whether those who are asking for loans for home appliances are good credit risk?

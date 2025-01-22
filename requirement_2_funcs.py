@@ -213,6 +213,87 @@ def filter_to_sql(openai_api_key, schema_with_examples, filter_representation):
 
 
 
+def filter_to_sql_validation(openai_api_key, schema_with_examples, filter_representation):
+    """
+    Converts a filter representation into corresponding SQL code using OpenAI's language model. Modified for validation by not splitting at newline character
+
+    Args:
+        openai_api_key: The API key for authenticating with OpenAI.
+        schema_with_examples: A formatted string containing dataset schema and example rows.
+        filter_representation: The filter representation to convert into SQL code.
+
+    Returns:
+        string: A string containing the update SQL query and the retrieval SQL query.
+    """
+    # Path to the examples file
+    sql_examples_path = r'Prompt_Examples\Filter_Repr_to_SQL_Eg.txt'
+    
+    # Read SQL examples from the file
+    try:
+        with open(sql_examples_path, 'r') as file:
+            sql_examples = file.read()
+    except FileNotFoundError:
+        raise FileNotFoundError(
+            f"Examples file not found at {sql_examples_path}. Please verify the path."
+        )
+    except Exception as e:
+        raise RuntimeError(f"An error occurred while reading the examples file: {e}")
+
+    # Define the prompt template
+    template_sql_prompt = '''
+    You are a highly capable assistant that translates filter representation queries into SQL code based on the given dataset context. 
+
+    ### Dataset Context
+    {data_context}
+
+    ### Examples
+    {sql_examples}
+
+    ### Task
+    Translate the following filter representation query into SQL code.
+
+    ### Input
+    Filter Representation: {filter_representation}
+
+    ### Output
+    - First, generate the SQL code for the filter or update operation all on ONE LINE.
+    - ON A NEW LINE, provide the SQL code for the retrieval operation.
+    - Only use SELECT or UPDATE methods in the SQL code.
+    - Set True and False to 1 and 0 in the SQL Code if the dataset feature values are only numerical.
+    - If the filter representation asks for top features, then select all the data.
+    - Always write column names in double quotations.
+
+    Output only the SQL code in the following format:
+    <Filter/Update SQL Code> <Retrieval SQL Code>
+    '''
+
+    # Construct the prompt
+    sql_prompt = PromptTemplate(
+        input_variables=['filter_representation', 'data_context', 'sql_examples'],
+        template=template_sql_prompt
+    )
+
+    # Initialize the language model
+    llm_sql = ChatOpenAI(model="gpt-4", temperature=0, openai_api_key=openai_api_key)
+
+    # Combine the prompt and the language model into a sequence
+    sql_chain = sql_prompt | llm_sql
+
+    # Generate SQL code
+    try:
+        sql_queries = sql_chain.invoke({
+            'filter_representation': filter_representation,
+            'data_context': schema_with_examples,
+            'sql_examples': sql_examples
+        })
+    except Exception as e:
+        raise RuntimeError(f"An error occurred while generating the SQL queries: {e}")
+
+
+    return sql_queries.content
+
+
+
 from sklearn.preprocessing import FunctionTransformer
 
 def pipeline_extract(pipeline):
