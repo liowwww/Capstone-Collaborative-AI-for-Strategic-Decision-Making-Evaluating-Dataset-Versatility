@@ -12,6 +12,7 @@ import gradio as gr
 import re 
 
 from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import FunctionTransformer
 from pandasql import sqldf
 from langchain.prompts import PromptTemplate
 from langchain_community.chat_models import ChatOpenAI
@@ -212,6 +213,8 @@ def filter_to_sql(openai_api_key, schema_with_examples, filter_representation):
 
 
 
+from sklearn.preprocessing import FunctionTransformer
+
 def pipeline_extract(pipeline):
     """
     Extracts the transformations and model from a scikit-learn pipeline.
@@ -228,9 +231,15 @@ def pipeline_extract(pipeline):
     if not hasattr(pipeline, "steps"):
         raise ValueError("The input must be a scikit-learn pipeline object with a 'steps' attribute.")
 
-    # Extract transformations (all but the last step) and the final model (last step)
-    transformations = pipeline[:-1]
-    model = pipeline[-1]
+    # Check if the pipeline has more than one step
+    if len(pipeline.steps) > 1:
+        # Extract transformations (all but the last step) and the final model (last step)
+        transformations = pipeline[:-1]
+        model = pipeline[-1]
+    else:
+        # Pipeline consists only of the model, use a "do-nothing" transformation
+        transformations = Pipeline([('noop', FunctionTransformer(lambda x: x))])  # Identity transformer
+        model = pipeline.steps[0][1]  # Extract the model
 
     return transformations, model
 
@@ -266,15 +275,21 @@ def calc_SHAP(transformations, model, dataset, dataset_name, update_query, retri
         return pd.read_sql(query, connection)
 
     def initialize_explainer(model, data_transformed):
+        # Check for TreeExplainer
         if isinstance(model, (sklearn.ensemble.RandomForestClassifier, sklearn.ensemble.GradientBoostingClassifier)):
-            return shap.TreeExplainer(model)
+            return shap.TreeExplainer(model, check_additivity=False)  # Avoid additivity check for tree-based models
+        # Check for LogisticRegression
         elif isinstance(model, sklearn.linear_model.LogisticRegression):
-            return shap.LinearExplainer(model, data_transformed)
+            return shap.LinearExplainer(model, data_transformed)  # Additivity defaults to True for LinearExplainer
+        # Check for LinearRegression
+        elif isinstance(model, sklearn.linear_model.LinearRegression):
+            return shap.LinearExplainer(model, data_transformed)  # Additivity defaults to True for LinearExplainer
+        # Default to KernelExplainer
         else:
-            return shap.KernelExplainer(model.predict_proba, data_transformed)
-
+            return shap.KernelExplainer(model.predict_proba, data_transformed)  # KernelExplainer does not check additivity
+        
     def calculate_shap_values(explainer, data_transformed):
-        return explainer.shap_values(data_transformed, check_additivity=False)
+        return explainer.shap_values(data_transformed)
 
     try:
         # Create SQLite database and retrieve initial dataset

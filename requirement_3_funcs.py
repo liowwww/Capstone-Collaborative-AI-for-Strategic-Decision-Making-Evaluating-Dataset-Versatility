@@ -12,6 +12,7 @@ import gradio as gr
 import re 
 
 from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import FunctionTransformer
 from pandasql import sqldf
 from langchain.prompts import PromptTemplate
 from langchain_community.chat_models import ChatOpenAI
