@@ -35,7 +35,7 @@ User Query: Show me the data and predictions for people older than 20.
 Filter Repr: filter age greater than 20 and show and predict [E]
 
 User Query: If we were to increase the loan amount by 250, what would happen to the likelihood of being bad credit risk for the data point with id 89?
-Filter Repr: filter id 89 and change glucose loanamount 250 and likelihood [E]
+Filter Repr: filter id 89 and change loanamount 250 and likelihood [E]
 
 User Query: What is the model's rationale for predicting people with no missed payments?
 Filter Repr: filter missedpayments false and explain features [E]
