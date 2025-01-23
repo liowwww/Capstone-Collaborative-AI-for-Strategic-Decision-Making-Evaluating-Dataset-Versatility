@@ -1,0 +1,14 @@
+SELECT * FROM the_dataset WHERE "CleanFuelAccess" > 60;\nSELECT * FROM the_dataset WHERE "CleanFuelAccess" > 60;
+SELECT * FROM the_dataset WHERE "TotalPopulation" < 10000000 AND "CO2Emissions" > 2;\nSELECT * FROM the_dataset WHERE "TotalPopulation" < 10000000 AND "CO2Emissions" > 2;
+SELECT * FROM the_dataset;\nSELECT * FROM the_dataset;
+SELECT * FROM the_dataset WHERE "CoalElectricity" = 0;\nSELECT * FROM the_dataset WHERE "CoalElectricity" = 0;
+UPDATE the_dataset SET "TotalPopulation" = "TotalPopulation" + 100000 WHERE "Country" = Armenia;\nSELECT * FROM the_dataset WHERE "Country" = Armenia;
+SELECT * FROM the_dataset WHERE "LandArea" > 100000;\nSELECT * FROM the_dataset WHERE "LandArea" > 100000;
+SELECT * FROM the_dataset WHERE "PopDensity" > 50;\nSELECT * FROM the_dataset WHERE "PopDensity" > 50;
+SELECT * FROM the_dataset WHERE "Country" = 'Armenia';\nSELECT * FROM the_dataset WHERE "Country" = 'Armenia';
+SELECT * FROM the_dataset;\nSELECT * FROM the_dataset;
+SELECT * FROM the_dataset;\nSELECT * FROM the_dataset;
+SELECT * FROM the_dataset;\nSELECT * FROM the_dataset;
+SELECT * FROM the_dataset WHERE "Country" = 'Ecuador';\nSELECT * FROM the_dataset WHERE "Country" = 'Ecuador';
+SELECT * FROM the_dataset WHERE "Country" = 'Afghanistan';\nSELECT * FROM the_dataset WHERE "Country" = 'Afghanistan';
+UPDATE the_dataset SET "PopDensity" = "PopDensity" + 10 WHERE "Latitude" > 40;\nSELECT * FROM the_dataset WHERE "Latitude" > 40;

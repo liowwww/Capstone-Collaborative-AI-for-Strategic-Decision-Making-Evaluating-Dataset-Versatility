@@ -117,6 +117,24 @@ print('-------------------------------------------------------------------------
 
 
 
+# exact match accuracy (EMA) and levenshtein distance for user query to filter representation translation all lower case
+filter_repr_correct_count_lower = 0
+filter_repr_distance_list_lower = []
+for i in range(len(loan_dataset_filter_repr_predictions_list)):
+    if loan_dataset_filter_repr_predictions_list[i].lower() == loan_dataset_filter_repr_labels_list[i].lower():
+        filter_repr_correct_count_lower += 1
+
+    filter_repr_distance_lower = editdistance.eval(loan_dataset_filter_repr_predictions_list[i].lower(), loan_dataset_filter_repr_labels_list[i].lower())
+    filter_repr_distance_list_lower.append(filter_repr_distance_lower)
+
+exact_match_accuracy_filter_repr_lower = filter_repr_correct_count_lower / len(loan_dataset_filter_repr_predictions_list)
+average_levenshtein_distance_filter_repr_lower = sum(filter_repr_distance_list_lower) / len(filter_repr_distance_list_lower)
+print(f'EMA of Predictions for Filter Repr Loan Dataset all lower: {exact_match_accuracy_filter_repr_lower}')
+print(f'Avg Levenshtein Distance between Predictions and Labels for Filter Repr Loan Dataset all lower: {average_levenshtein_distance_filter_repr_lower} ')
+print('---------------------------------------------------------------------------------------------------------------')
+
+
+
 # exact match accuracy (EMA) for filter representation translation to sql queries
 sql_queries_correct_count = 0
 sql_queries_distance_list = []

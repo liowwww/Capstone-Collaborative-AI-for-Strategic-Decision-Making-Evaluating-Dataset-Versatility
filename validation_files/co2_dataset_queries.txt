@@ -1,0 +1,15 @@
+How does having clean fuel access greater than 60 influence the overall CO2 emissions of a country?
+Can countries that have a population of less than 10 million still have CO2 emission over 2?
+Can you list the top three important features for the model’s prediction in the data?
+What are the most important features for a country that produces no coal electricity?
+Assuming that the total population of Armenia increases by 100000, what will be the prediction for the CO2 emission?
+How many countries have land area greater than 100000?
+What is the average CO2 emission of the countries which have a population density higher then 50?
+What are the top 5 features influencing the prediction for the country of armenia?
+Could you describe the data?
+What is the average CO2 emission of countries that have population density lower than 50 and GDP growth greater than 5?
+How accurate are you at predicting the CO2 emissions of a country?
+What country has the highest CO2 emissions and what are the main features affecting it?
+How did the CO2 emissions of Ecuador change over the past years?
+What are the top 3 features affecting Afghanistan CO2 emissions?
+For countries with latitude greater than 40 increase the population density by 10 and give the average?

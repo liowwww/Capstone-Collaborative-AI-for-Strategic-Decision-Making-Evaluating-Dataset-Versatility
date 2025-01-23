@@ -98,7 +98,7 @@ def query_to_filter(openai_api_key, schema_with_examples, user_query):
     Natural Language Query: {natural_language_query}
 
     ### Output
-    - Provide **only the filter representation as a single string** with no additional text, labels, or explanations (e.g., no "Filter Repr:", "Output:", or other prefixes).
+    - Provide **only the filter representation as a single string** with no additional text, labels, quotations, or explanations (e.g., no "Filter Repr:", "Output:", or other prefixes).
     - Replace `True` and `False` with `1` and `0` if the dataset feature values are numerical.
     '''
 
