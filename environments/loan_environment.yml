@@ -33,6 +33,7 @@ dependencies:
   - dotnet-desktop=7.0.2=h57928b3_0
   - dotnet-runtime=7.0.2=h91493d7_0
   - dotnet-sdk=7.0.102=h91493d7_0
+  - editdistance=0.8.1=py310h5da7b33_0
   - email-validator=2.2.0=pyhd8ed1ab_1
   - email_validator=2.2.0=hd8ed1ab_1
   - exceptiongroup=1.2.0=py310haa95532_0
