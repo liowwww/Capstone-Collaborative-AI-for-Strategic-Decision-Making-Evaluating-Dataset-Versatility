@@ -9,7 +9,6 @@ What are the top 5 features influencing the prediction for clients with id 45?
 could you describe the data?
 What is the average loan amount for people without current loans and that do not own a house?
 How accurate are you at predicting whether people are good or not at credit risk?
-predictions on instances that are labeled good credit risk but the model predicts them bad credit risk?
 What are the real labels for those asking for business loans and that are older than 40?
 In the dataset, if the loan term were to be increased by 2 years, what would the predictions for the data be?
 How accurate are you at predicting whether those who are asking for loans for home appliances are good credit risk?

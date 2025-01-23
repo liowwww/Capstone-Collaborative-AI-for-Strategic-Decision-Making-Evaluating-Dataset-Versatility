@@ -57,7 +57,7 @@ sample_ID = 'Country'
 # Are people younger than 25 vulnerable to bad credit risk?
 # Name the three most important features to determine whether those that are applying for furniture loans are good credit risk.
 # Why did the model predict data point number 993 and is there anything you can do to change it?
-user_query = 'What are the most important features affecting CO2 emissions'
+user_query = 'What is the mean value of Gas electricity?'
 
 # getting datacontext
 data_context = get_dataframe_schema(dataset, dataset_name)

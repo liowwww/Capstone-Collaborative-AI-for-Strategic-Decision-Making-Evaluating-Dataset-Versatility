@@ -22,7 +22,7 @@ from langchain_openai import ChatOpenAI
 from os.path import dirname, abspath
 
 # importing functions
-from requirement_2_funcs import get_dataframe_schema, query_to_filter, filter_to_sql, pipeline_extract, calc_SHAP, pred_and_stats, filter_to_sql_validation
+from requirement_2_funcs import get_dataframe_schema, query_to_filter, filter_to_sql, pipeline_extract, calc_SHAP, pred_and_stats
 from requirement_3_funcs import get_importance_table, final_importance, ml_to_natural_language
 
 
@@ -67,14 +67,22 @@ loan_queries_list = [line.strip() for line in loan_queries_list]
 
 # extract filter representation labels
 with open(loan_dataset_filter_repr_labels_path, 'r') as file:
-    loan_dataset_filter_repr_labels_list = file.readlines()
-loan_dataset_filter_repr_labels_list = [line.strip() for line in loan_dataset_filter_repr_labels_list]
+    loan_dataset_filter_repr_labels_list = [line.rstrip('\n') for line in file]
 
 
-# extract sql queries labels
+# Open the file and read lines
 with open(loan_dataset_sql_queries_labels_path, 'r') as file:
-    loan_dataset_sql_queries_labels_list = [line.rstrip('\n') for line in file]
-loan_dataset_sql_queries_labels_list
+    loan_dataset_sql_queries_labels_lines = file.readlines()
+# Initialize a list to store each SQL statement
+loan_dataset_sql_queries_labels_list = []
+# Process each line
+for line in loan_dataset_sql_queries_labels_lines:
+    # Split the line at \n
+    parts = line.split('\\n')
+    for part in parts:
+        # Clean and add to the list
+        loan_dataset_sql_queries_labels_list.append(part.strip())
+
 
 
 # making predictions for filter representation
@@ -86,8 +94,9 @@ for query in loan_queries_list:
 
 loan_dataset_sql_queries_predictions_list = []
 for filter_repr in loan_dataset_filter_repr_labels_list:
-    sql_queries = filter_to_sql_validation(openai_api_key, schema_with_examples, filter_repr)
-    loan_dataset_sql_queries_predictions_list.append(sql_queries)
+    update_query, retrieve_query = filter_to_sql(openai_api_key, schema_with_examples, filter_repr)
+    loan_dataset_sql_queries_predictions_list.append(update_query)
+    loan_dataset_sql_queries_predictions_list.append(retrieve_query)
 
 
 # exact match accuracy (EMA) and levenshtein distance for user query to filter representation translation
@@ -120,6 +129,7 @@ for i in range(len(loan_dataset_sql_queries_predictions_list)):
 
 exact_match_accuracy_sql_queries_loan = sql_queries_correct_count / len(loan_dataset_sql_queries_predictions_list)
 average_levenshtein_distance_sql_queries = sum(sql_queries_distance_list) / len(sql_queries_distance_list)
+
 print(f'EMA of Predictions for SQL Queries Loan Dataset: {exact_match_accuracy_sql_queries_loan}')
 print(f'Avg Levenshtein Distance between Predictions and Labels for SQL Queries Loan Dataset: {average_levenshtein_distance_sql_queries} ')
 print('---------------------------------------------------------------------------------------------------------------')

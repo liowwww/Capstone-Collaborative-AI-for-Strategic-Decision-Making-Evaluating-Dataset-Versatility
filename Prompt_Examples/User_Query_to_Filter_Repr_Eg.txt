@@ -1,95 +1,95 @@
 User Query: What is your logic for determining if people with no missed payments are good credit risk?
-Filter Repr: filter missedpayments false and explain features [E]
+----> filter missedpayments false and explain features [E]
 
 User Query: How likely are the people older than 30 to be good credit risk?
-Filter Repr: filter age greater than 30 and likelihood [E]
+----> filter age greater than 30 and likelihood [E]
 
 User Query: Which three features are the most important for the model's predictions in the data?
-Filter Repr: important topk 3 [E]
+----> important topk 3 [E]
 
 User Query: Why did the model predict data point number 100 and is there anything you can do to change it?
-Filter Repr: filter id 100 and explain features and explain cfe [E]
+----> filter id 100 and explain features and explain cfe [E]
 
 User Query: How important would the age and loan features be for predicting credit risk if the people in the data are unemployed?
-Filter Repr: change unemployed true and important age and important loanamount [E]
+----> change unemployed true and important age and important loanamount [E]
 
 User Query: Assuming that the age of unemployment is decreased by 5 years, what would the prediction be?
-Filter Repr: filter unemployed true and change age decrease 5 and predict [E]
+----> filter unemployed true and change age decrease 5 and predict [E]
 
 User Query: How many people asked for loans worth less than 2000?
-Filter Repr: filter loanamount less than 2000 and countdata [E]
+----> filter loanamount less than 2000 and countdata [E]
 
 User Query: What number of points in data where the individual asks fo a loan?
-Filter Repr: filter loanpurposenewcar and countdata [E]
+----> filter loanpurposenewcar and countdata [E]
 
 User Query: people younger than 25 to be bad credit risk?
-Filter Repr: filter age less than 25 and likelihood [E]
+----> filter age less than 25 and likelihood [E]
 
 User Query: How likely are those that who are either foreign workers or unemployed to be bad credit risk?
-Filter Repr: filter foreignworker true or filter unemployed true and likelihood [E]
+----> filter foreignworker true or filter unemployed true and likelihood [E]
 
 User Query: What are the top five most important functions for the model's predictions on people than have lived two years at their current home?
-Filter Repr: filter yearsatcurrenthome equal to 2 and important topk 5 [E]
+----> filter yearsatcurrenthome equal to 2 and important topk 5 [E]
 
 User Query: Show me the data and predictions for people older than 20. 
-Filter Repr: filter age greater than 20 and show and predict [E]
+----> filter age greater than 20 and show and predict [E]
 
 User Query: If we were to increase the loan amount by 250, what would happen to the likelihood of being bad credit risk for the data point with id 89?
-Filter Repr: filter id 89 and change loanamount 250 and likelihood [E]
+----> filter id 89 and change loanamount 250 and likelihood [E]
 
 User Query: What is the model's rationale for predicting people with no missed payments?
-Filter Repr: filter missedpayments false and explain features [E]
+----> filter missedpayments false and explain features [E]
 
 User Query: Can you show me some data for people who have coapplicants?
-Filter Repr: filter hascoapplicant true and show [E]
+----> filter hascoapplicant true and show [E]
 
 User Query: tell me what the average age in the data?
-Filter Repr: statistic age [E]
+----> statistic age [E]
 
 User Query: What is the average loan amount for those with no current loans and that do not own a house?
-Filter Repr: filter nocurrentloan true and filter ownshouse false and statistic loanamount [E]
+----> filter nocurrentloan true and filter ownshouse false and statistic loanamount [E]
 
 User Query: Show me the labels for single people.
-Filter Repr: filter single true and label [E]
+----> filter single true and label [E]
 
 User Query: Show me the labels for data points where the loan duration is 1 year
-Filter Repr: filter loanduration equal to 1 and label [E]
+----> filter loanduration equal to 1 and label [E]
 
 User Query: could you describe the data?
-Filter Repr: data [E]
+----> data [E]
 
 User Query: How likely is the data point number 32 to be good credit risk?
-Filter Repr: filter id 32 and likelihood [E]
+----> filter id 32 and likelihood [E]
 
 User Query: Which common mistakes you make when determining if individuals are good credit risk?
-Filter Repr: mistake typical [E]
+----> mistake typical [E]
 
 User Query: Are you accurate at predicting whether people are good credit risks?
-Filter Repr: score accuracy [E]
+----> score accuracy [E]
 
 User Query: How exactly accurate are you at predicting whether people who are asking for loans for home appliances are good credit risk?
-Filter Repr: filter loanpurposehomeappliances true and score accuracy [E]
+----> filter loanpurposehomeappliances true and score accuracy [E]
 
 User Query: What are some of the examples of some mistakes you make on people older than 40?
-Filter Repr: filter age greater than 40 and mistake sample [E]
+----> filter age greater than 40 and mistake sample [E]
 
 User Query: In the dataset, if the loan term were to be increased by 2 years, what would the predictions for the data be?
-Filter Repr: change loanduration increase 2 and predict [E]
+----> change loanduration increase 2 and predict [E]
 
 User Query: Could you show me examples the model predicts incorrectly and how accurate the model is on the data?
-Filter Repr: mistake sample and score accuracy [E]
+----> mistake sample and score accuracy [E]
 
 User Query: What are the real actual labels for those asking for business loans and that are older than 40?
-Filter Repr: filter loanpurposebusiness true and filter age greater than 40 and label [E]
+----> filter loanpurposebusiness true and filter age greater than 40 and label [E]
 
 User Query: What do you estimate on people with checking account balances greater or equal than 200
-Filter Repr: filter checkingaccountbalancegreaterorequalthan200 true and predict [E]
+----> filter checkingaccountbalancegreaterorequalthan200 true and predict [E]
 
 User Query: For all the data points with age greater than 76, lower the loan amounts they ask for by 1000 and show me the predictions
-Filter Repr: filter age greater than 76 and change loanamount decrease 1000 and predict [E]
+----> filter age greater than 76 and change loanamount decrease 1000 and predict [E]
 
 User Query: can you please show me the predictions on instances that are labeled good credit risk but the model predicts them bad credit risk?
-Filter Repr: filter labelfilter 1 and filter predictionfilter 0 and predict [E]
+----> filter labelfilter 1 and filter predictionfilter 0 and predict [E]
 
 User Query: What does loan applicant number 34 have to make a change to in order to be recommended as good credit risk?
-Filter Repr: filter id 34 and explain cfe [E]
+----> filter id 34 and explain cfe [E]

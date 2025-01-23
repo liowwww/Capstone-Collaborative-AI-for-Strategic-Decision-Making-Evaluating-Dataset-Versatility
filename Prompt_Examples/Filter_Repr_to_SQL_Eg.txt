@@ -1,10 +1,10 @@
 Filter Repr: filter missedpayments false and explain features [E]
 Update/Filter Code: SELECT * FROM table_name WHERE missedpayments = FALSE;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE missedpayments = FALSE;
 
 Filter Repr: filter age greater than 30 and likelihood [E]
 Update/Filter Code: SELECT * FROM table_name WHERE age > 30;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE age > 30;
 
 Filter Repr: important topk 3 [E]
 Update/Filter Code: SELECT * FROM table_name;
@@ -16,7 +16,7 @@ Retrieval Code: SELECT * FROM table_name;
 
 Filter Repr: filter id 100 and explain features and explain cfe [E]
 Update/Filter Code: SELECT * FROM table_name WHERE id = 100;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE id = 100;
 
 Filter Repr: change unemployed true and important age and important loanamount [E]
 Update/Filter Code: UPDATE table_name SET unemployed = TRUE;
@@ -28,27 +28,27 @@ Retrieval Code: SELECT * FROM table_name WHERE unemployed = TRUE;
 
 Filter Repr: filter loanamount less than 2000 and countdata [E]
 Update/Filter Code: SELECT * FROM table_name WHERE loanamount < 2000;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE loanamount < 2000;
 
 Filter Repr: filter loanpurposenewcar and countdata [E]
 Update/Filter Code: SELECT * FROM table_name WHERE loanpurpose = 'newcar';
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE loanpurpose = 'newcar';
 
 Filter Repr: filter age less than 25 and likelihood [E]
 Update/Filter Code: SELECT * FROM table_name WHERE age < 25;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE age < 25;
  
 Filter Repr: filter foreignworker true or filter unemployed true and likelihood [E]
 Update/Filter Code: SELECT * FROM table_name WHERE foreignworker = TRUE OR unemployed = TRUE;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE foreignworker = TRUE OR unemployed = TRUE;
 
 Filter Repr: filter yearsatcurrenthome equal to 2 and important topk 5 [E]
 Update/Filter Code: SELECT * FROM table_name WHERE yearsatcurrenthome = 2;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE yearsatcurrenthome = 2;
 
 Filter Repr: filter age greater than 20 and show and predict [E]
 Update/Filter Code: SELECT * FROM table_name WHERE age > 20;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE age > 20;
 
 Filter Repr: filter id 89 and change glucose loanamount 250 and likelihood [E]
 Update/Filter Code: UPDATE table_name SET loanamount = 250 WHERE id = 89;
@@ -56,11 +56,11 @@ Retrieval Code: SELECT * FROM table_name WHERE id = 89;
 
 Filter Repr: filter missedpayments false and explain features [E]
 Update/Filter Code: SELECT * FROM table_name WHERE missedpayments = FALSE;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE missedpayments = FALSE;
 
 Filter Repr: filter hascoapplicant true and show [E]
 Update/Filter Code: SELECT * FROM table_name WHERE hascoapplicant = TRUE;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE hascoapplicant = TRUE;
  
 Filter Repr: statistic age [E]
 Update/Filter Code: SELECT * FROM table_name;
@@ -68,15 +68,15 @@ Retrieval Code: SELECT * FROM table_name;
 
 Filter Repr: filter nocurrentloan true and filter ownshouse false and statistic loanamount [E]
 Update/Filter Code: SELECT * FROM table_name WHERE nocurrentloan = TRUE AND ownshouse = FALSE;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE nocurrentloan = TRUE AND ownshouse = FALSE;
 
 Filter Repr: filter single true and label [E]
 Update/Filter Code: SELECT * FROM table_name WHERE single = TRUE;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE single = TRUE;
 
 Filter Repr: filter loanduration equal to 1 and label [E]
 Update/Filter Code: SELECT * FROM table_name WHERE loanduration = 1;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE loanduration = 1;
 
 Filter Repr: data [E]
 Update/Filter Code: SELECT * FROM table_name;
@@ -84,7 +84,7 @@ Retrieval Code: SELECT * FROM table_name;
 
 Filter Repr: filter id 32 and likelihood [E]
 Update/Filter Code: SELECT * FROM table_name WHERE id = 32;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE id = 32;
 
 Filter Repr: mistake typical [E]
 Update/Filter Code: SELECT * FROM table_name;
@@ -96,11 +96,11 @@ Retrieval Code: SELECT * FROM table_name;
 
 Filter Repr: filter loanpurposehomeappliances true and score accuracy [E]
 Update/Filter Code: SELECT * FROM table_name WHERE loanpurposehomeappliances = TRUE;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE loanpurposehomeappliances = TRUE;
 
 Filter Repr: filter age greater than 40 and mistake sample [E]
 Update/Filter Code: SELECT * FROM table_name WHERE age > 40;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE age > 40;
 
 Filter Repr: change loanduration increase 2 and predict [E]
 Update/Filter Code: UPDATE table_name SET loanduration = loanduration + 2;
@@ -112,11 +112,11 @@ Retrieval Code: SELECT * FROM table_name;
 
 Filter Repr: filter loanpurposebusiness true and filter age greater than 40 and label [E]
 Update/Filter Code: SELECT * FROM table_name WHERE loanpurposebusiness = TRUE AND age > 40;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE loanpurposebusiness = TRUE AND age > 40;
 
 Filter Repr: filter checkingaccountbalancegreaterorequalthan200 true and predict [E]
 Update/Filter Code: SELECT * FROM table_name WHERE checkingaccountbalancegreaterorequalthan200 = TRUE;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE checkingaccountbalancegreaterorequalthan200 = TRUE;
 
 Filter Repr: filter age greater than 76 and change loanamount decrease 1000 and predict [E]
 Update/Filter Code: UPDATE table_name SET loanamount = loanamount - 1000 WHERE age > 76;
@@ -124,8 +124,8 @@ Retrieval Code: SELECT * FROM table_name;
 
 Filter Repr: filter y 1 and filter predictionfilter 0 and predict [E]
 Update/Filter Code: SELECT * FROM table_name WHERE y = 1 AND prediction = 0;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE y = 1 AND prediction = 0;
 
 Filter Repr: filter id 34 and explain cfe [E]
 Update/Filter Code: SELECT * FROM table_name WHERE id = 34;
-Retrieval Code: SELECT * FROM table_name;
+Retrieval Code: SELECT * FROM table_name WHERE id = 34;

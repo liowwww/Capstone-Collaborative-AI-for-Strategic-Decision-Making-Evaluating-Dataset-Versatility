@@ -98,8 +98,8 @@ def query_to_filter(openai_api_key, schema_with_examples, user_query):
     Natural Language Query: {natural_language_query}
 
     ### Output
-    - Output only the filter representation as a single string. Do not include any additional explanation or comments.
-    - Set True and False to 1 and 0 in the Filter Representation if the dataset feature values are only numerical.
+    - Provide **only the filter representation as a single string** with no additional text, labels, or explanations (e.g., no "Filter Repr:", "Output:", or other prefixes).
+    - Replace `True` and `False` with `1` and `0` if the dataset feature values are numerical.
     '''
 
     # Construct the prompt
@@ -174,9 +174,11 @@ def filter_to_sql(openai_api_key, schema_with_examples, filter_representation):
     - First, generate the SQL code for the filter or update operation all on ONE LINE.
     - ON A NEW LINE, provide the SQL code for the retrieval operation.
     - Only use SELECT or UPDATE methods in the SQL code.
+    - ALWAYS output 2 SQL queries, NEVER output just a single query
     - Set True and False to 1 and 0 in the SQL Code if the dataset feature values are only numerical.
     - If the filter representation asks for top features, then select all the data.
     - Always write column names in double quotations.
+    - Never write table names in quotations.
 
     Output only the SQL code in the following format:
     <Filter/Update SQL Code> <Retrieval SQL Code>
@@ -207,94 +209,11 @@ def filter_to_sql(openai_api_key, schema_with_examples, filter_representation):
     # Parse the result to split update and retrieve code
     sql_queries = sql_queries.content.strip().split("\n")
     update_query = sql_queries[0].strip()
-    retrieve_query = sql_queries[1].strip() if len(sql_queries) > 1 else update_query
+    retrieve_query = sql_queries[1].strip()
 
     return update_query, retrieve_query
 
 
-
-def filter_to_sql_validation(openai_api_key, schema_with_examples, filter_representation):
-    """
-    Converts a filter representation into corresponding SQL code using OpenAI's language model. Modified for validation by not splitting at newline character
-
-    Args:
-        openai_api_key: The API key for authenticating with OpenAI.
-        schema_with_examples: A formatted string containing dataset schema and example rows.
-        filter_representation: The filter representation to convert into SQL code.
-
-    Returns:
-        string: A string containing the update SQL query and the retrieval SQL query.
-    """
-    # Path to the examples file
-    sql_examples_path = r'Prompt_Examples\Filter_Repr_to_SQL_Eg.txt'
-    
-    # Read SQL examples from the file
-    try:
-        with open(sql_examples_path, 'r') as file:
-            sql_examples = file.read()
-    except FileNotFoundError:
-        raise FileNotFoundError(
-            f"Examples file not found at {sql_examples_path}. Please verify the path."
-        )
-    except Exception as e:
-        raise RuntimeError(f"An error occurred while reading the examples file: {e}")
-
-    # Define the prompt template
-    template_sql_prompt = '''
-    You are a highly capable assistant that translates filter representation queries into SQL code based on the given dataset context. 
-
-    ### Dataset Context
-    {data_context}
-
-    ### Examples
-    {sql_examples}
-
-    ### Task
-    Translate the following filter representation query into SQL code.
-
-    ### Input
-    Filter Representation: {filter_representation}
-
-    ### Output
-    - First, generate the SQL code for the filter or update operation all on ONE LINE.
-    - ON A NEW LINE, provide the SQL code for the retrieval operation.
-    - Only use SELECT or UPDATE methods in the SQL code.
-    - Set True and False to 1 and 0 in the SQL Code if the dataset feature values are only numerical.
-    - If the filter representation asks for top features, then select all the data.
-    - Always write column names in double quotations.
-
-    Output only the SQL code in the following format:
-    <Filter/Update SQL Code> <Retrieval SQL Code>
-    '''
-
-    # Construct the prompt
-    sql_prompt = PromptTemplate(
-        input_variables=['filter_representation', 'data_context', 'sql_examples'],
-        template=template_sql_prompt
-    )
-
-    # Initialize the language model
-    llm_sql = ChatOpenAI(model="gpt-4", temperature=0, openai_api_key=openai_api_key)
-
-    # Combine the prompt and the language model into a sequence
-    sql_chain = sql_prompt | llm_sql
-
-    # Generate SQL code
-    try:
-        sql_queries = sql_chain.invoke({
-            'filter_representation': filter_representation,
-            'data_context': schema_with_examples,
-            'sql_examples': sql_examples
-        })
-    except Exception as e:
-        raise RuntimeError(f"An error occurred while generating the SQL queries: {e}")
-
-
-    return sql_queries.content
-
-
-
-from sklearn.preprocessing import FunctionTransformer
 
 def pipeline_extract(pipeline):
     """
@@ -358,7 +277,7 @@ def calc_SHAP(transformations, model, dataset, dataset_name, update_query, retri
     def initialize_explainer(model, data_transformed):
         # Check for TreeExplainer
         if isinstance(model, (sklearn.ensemble.RandomForestClassifier, sklearn.ensemble.GradientBoostingClassifier)):
-            return shap.TreeExplainer(model, check_additivity=False)  # Avoid additivity check for tree-based models
+            return shap.TreeExplainer(model)  # Avoid additivity check for tree-based models
         # Check for LogisticRegression
         elif isinstance(model, sklearn.linear_model.LogisticRegression):
             return shap.LinearExplainer(model, data_transformed)  # Additivity defaults to True for LinearExplainer
@@ -404,7 +323,7 @@ def calc_SHAP(transformations, model, dataset, dataset_name, update_query, retri
             cursor.execute(update_query)
             connection.commit()
 
-            after_dataset = get_dataset_from_query(connection, update_query)
+            after_dataset = get_dataset_from_query(connection, retrieve_query)
             sql_dataset = after_dataset.drop(columns=[sample_ID, label_name])
             sql_dataset_transformed = transformations.fit_transform(sql_dataset)
             explainer = initialize_explainer(model, sql_dataset_transformed)
