@@ -5,12 +5,18 @@ on which model is being used. Or just one environment could be used but then the
 to be changed when using different models. 
 
 Installing the environment:
-1. Have anaconda installed
-2. in the environments folder there are two .yml files, one for the loan dataset and one for the co2 dataset.
-3. to install the environment 'conda env create -f environment.yml' needs to be typed in anaconda prompt, replacing 'environment.yml' with the path to the .yml file in the directory
-4. activate the environment in anaconda prompt using 'conda activate capstone_310' for the loan model or 'conda activate capstone_d2' for the co2 model.
-5. install gradio in the environment on anaconda prompt using 'pip install gradio'
-6. now the repository can be opened in visual studio code and activate the corresponding environment depending on the model
+1. Make sure you have Anaconda installed on your system.
+2. In the project folder, you’ll find two .yml files in the environments folder:
+    One for the loan dataset.
+    One for the CO2 dataset.
+3. To install the environment, open Anaconda Prompt and type the following, replacing environment.yml with the path to the relevant .yml file:
+    conda env create -f environment.yml
+4. After the environment is created, activate it by typing one of the following:
+    For the loan model: conda activate capstone_310
+    For the CO2 model: conda activate capstone_d2
+5. Install Gradio in the environment by typing the following in Anaconda Prompt:
+    pip install gradio
+6. Now, open the repository in Visual Studio Code. Make sure to activate the appropriate environment based on the model you are using.
 
 Running the system:
 1. Open and run the 'requirement_2_funcs.py' file
