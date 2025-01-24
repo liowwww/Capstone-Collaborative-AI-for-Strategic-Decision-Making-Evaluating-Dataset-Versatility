@@ -4,6 +4,7 @@ The two models use two different sci-kit learn versions which is why a different
 on which model is being used. Or just one environment could be used but then the sci-kit learn version needs
 to be changed when using different models. 
 
+
 Installing the environment:
 1. Make sure you have Anaconda installed on your system.
 2. In the project folder, you’ll find two .yml files in the environments folder:
@@ -17,6 +18,7 @@ Installing the environment:
 5. Install Gradio in the environment by typing the following in Anaconda Prompt:
     pip install gradio
 6. Now, open the repository in Visual Studio Code. Make sure to activate the appropriate environment based on the model you are using.
+
 
 Running the system:
 1. Open and run the 'requirement_2_funcs.py' file
