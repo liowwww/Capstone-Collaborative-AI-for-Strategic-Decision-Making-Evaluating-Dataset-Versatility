@@ -1,4 +1,4 @@
-The project involves leveraging LLMs through prompt engineering in order to answer user queries regarding a dataset and model. 
+The project involves leveraging LLMs through prompt engineering in order to answer user queries regarding a dataset and a sci-kit learn machine learning model. 
 If you want to try the sustem are two models and datasets, one related to loans and one related to CO2 emissions. 
 
 
