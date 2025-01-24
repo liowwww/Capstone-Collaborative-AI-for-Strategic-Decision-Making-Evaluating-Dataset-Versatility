@@ -19,10 +19,10 @@ Running the system:
 2. Open and run the 'requirement_3_funcs.py' file
 3. Open and run the 'main.py' file
 4. If gradio was installed correctly a link to open the interface should be present in the terminal, click it to open
-5. In the 'loan_model_dataset' and 'co2_model_dataset' there will be a .csv file and a .pkl file for the dataset and model pipline repsectively
+5. In the 'loan_model_dataset' and 'co2_model_dataset' folders there will be a .csv file and a .pkl file for the dataset and model pipline repsectively
 6. On the interface there will be a place to drag and drop the .pkl file and .csv file respectively
 7. Then type the openai API key
-8. If you are using the loan dataset the label name is 'y' or if you are using the co2 dataset the label column is 'CO2Emissions', this helps the system identify which column is the labels
+8. If you are using the loan dataset the Label Name is 'y' or if you are using the co2 dataset the Label Name is 'CO2Emissions', this helps the system identify which column is the labels
 9. If you are using the loan dataset the Sample ID is 'ID' or if you are using the co2 dataset the Sample ID is 'Country', this helps the system identify which column has the row names
 10. Now a question about the dataset can be asked, we would suggest questions along the following lines, keep in mind follow up questions cannot be performed
 
