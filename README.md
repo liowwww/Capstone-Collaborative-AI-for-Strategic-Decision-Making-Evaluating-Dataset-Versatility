@@ -57,10 +57,12 @@ These are the types of questions that can be asked. If you want the change the d
 and fill in the respective boxes with the correct information given above. You may have to use the command 'ctrl + c' in the terminal to stop the interface so it can be rerun.
 
 If you run into issues, here are some common solutions:
-- Environment Errors: Make sure you've activated the correct environment for the model you're using (capstone_310 for the loan model or capstone_d2 for the CO2 model).
+- Environment Errors: Make sure you've activated the correct environment (capstone_d2).
 - Missing Dependencies: Ensure you've installed all the dependencies, including Gradio.
 - API Key Issues: Double-check that your OpenAI API key is correct and active.
 - Dataset or Model Issues: Ensure the correct .csv and .pkl files are uploaded.
 
-Keep in mind that the LLM can make translation errors because the exact match accuracy of its translations is not 100%, 
-if a question does not work this is also a possibility and a limitation of the current approach.
+Error in the chat interface: 
+- Could be due to the LLM can making a translation error because the exact match accuracy of its translations is not 100%, in this case you should be able to try a different question or reword the previous question in the textbox.
+- The feature name or row name used is not present in the dataset.
+- The task you asked to be performed cannot be done with the current capabilities of the system.
