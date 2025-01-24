@@ -70,7 +70,8 @@ with open(loan_dataset_filter_repr_labels_path, 'r') as file:
     loan_dataset_filter_repr_labels_list = [line.rstrip('\n') for line in file]
 
 
-# Open the file and read lines
+# extract sql queries labels
+# open the file and read lines
 with open(loan_dataset_sql_queries_labels_path, 'r') as file:
     loan_dataset_sql_queries_labels_lines = file.readlines()
 # Initialize a list to store each SQL statement
