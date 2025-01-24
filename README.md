@@ -24,7 +24,7 @@ Running the system:
 7. Then type the openai API key
 8. If you are using the loan dataset the Label Name is 'y' or if you are using the co2 dataset the Label Name is 'CO2Emissions', this helps the system identify which column is the labels
 9. If you are using the loan dataset the Sample ID is 'ID' or if you are using the co2 dataset the Sample ID is 'Country', this helps the system identify which column has the row names
-10. Now a question about the dataset can be asked, we would suggest questions along the following lines, keep in mind follow up questions cannot be performed
+10. Now a question about the dataset can be asked, we would suggest trying the following questions or something similar, keep in mind follow up questions cannot be performed. Rows or columns referred to in the question must be present in the dataset.
 
 Questions Loan Dataset:
 - How many people have a loan duration more than 40 weeks?
@@ -53,8 +53,8 @@ Questions CO2 Dataset
 - What country has the highest CO2 emissions and what are the main features affecting it?
 - For countries with energy use greater than 2000 increase the renewable electricity by 10 and give explain how predictions changed?
 
-These are the types of questions that can be asked, it is important to keep in mind that if rows or columns are referred in the question they must be in the dataset.
-If you want the change the dataset to need to change the environment, rerun 'requirement_2_funcs.py' and 'requirement_3_funcs.py' then restart the gradio interface from main and import the new dataset and model
+These are the types of questions that can be asked. If you want the change the dataset you will have to restart the gradio interface, upload the new model and dataset
+and fill in the respective boxes with the correct information given above. You may have to use the command 'ctrl + c' in the terminal to stop the interface so it can be rerun.
 
 If you run into issues, here are some common solutions:
 - Environment Errors: Make sure you've activated the correct environment for the model you're using (capstone_310 for the loan model or capstone_d2 for the CO2 model).
