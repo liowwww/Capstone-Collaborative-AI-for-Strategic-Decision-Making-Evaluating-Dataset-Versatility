@@ -1,19 +1,13 @@
 The project involves leveraging LLMs through prompt engineering in order to answer user queries regarding a dataset and model. 
 If you want to try the sustem are two models and datasets, one related to loans and one related to CO2 emissions. 
-The two models use two different sci-kit learn versions which is why a different environment is needed depending
-on which model is being used. Or just one environment could be used but then the sci-kit learn version needs
-to be changed when using different models. 
 
 
 Installing the environment:
 1. Make sure you have Anaconda installed on your system.
-2. In the project folder, you’ll find two .yml files in the environments folder:
-- One for the loan dataset.
-- One for the CO2 dataset.
+2. In the project folder, you’ll find a .yml file in the environments folder:
 3. To install the environment, open Anaconda Prompt and type the following, replacing environment.yml with the path to the relevant .yml file:
 - conda env create -f environment.yml
-4. After the environment is created, activate it by typing one of the following:
-- For the loan model: conda activate capstone_310
+4. After the environment is created, activate it by typing the following:
 - For the CO2 model: conda activate capstone_d2
 5. Install Gradio in the environment by typing the following in Anaconda Prompt:
 - pip install gradio

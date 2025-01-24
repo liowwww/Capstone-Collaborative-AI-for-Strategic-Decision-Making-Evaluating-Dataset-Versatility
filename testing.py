@@ -27,33 +27,23 @@ from requirement_3_funcs import get_importance_table, final_importance, ml_to_na
 # openai api key, hard coded for now
 openai_api_key = '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'
 
-# loading the model pipeline and dataset, will be replaced with interface
-# # pipeline, hard coded for now
-# pipeline_path = r'loan_model_dataset\german_model_grad_tree.pkl'
-# with open(pipeline_path, 'rb') as file:
-#     pipeline = pkl.load(file)
-
-# # dataset, hard coded for now
-# dataset_path = r'loan_model_dataset\cut_loan_dataset.csv'
-# dataset = pd.read_csv(dataset_path)
-
 # pipeline, hard coded for now
-pipeline_path = r'sustainability_model_dataset\co2_model_reduced.pkl'
+pipeline_path = r'loan_model_dataset\loan_model.pkl'
 with open(pipeline_path, 'rb') as file:
     pipeline = pkl.load(file)
 
 # dataset, hard coded for now
-dataset_path = r'sustainability_model_dataset\co2_dataset_reduced.csv'
+dataset_path = r'loan_model_dataset\loan_dataset.csv'
 dataset = pd.read_csv(dataset_path)
 
 # extracting the dataset name
 dataset_name = 'the_dataset'
 
 # label name
-label_name = 'CO2Emissions'
+label_name = 'y'
 
 # Row ID
-sample_ID = 'Country'
+sample_ID = 'ID'
 
 # user query, hard coded for now
 # What is your reasoning for deciding if people with no missed payments are good credit risk?
@@ -67,7 +57,7 @@ sample_ID = 'Country'
 # Name the three most important features to determine whether those that are applying for furniture loans are good credit risk.
 # Why did the model predict data point number 993 and is there anything you can do to change it?
 # What is the average age of clients who have a telephone?
-user_query = 'Could you describe the data?'
+user_query = 'If we were to increase the loan amount by 250, what would happen to the likelihood of being bad credit risk for the data point with id 687?'
 
 # getting datacontext
 data_context = get_dataframe_schema(dataset, dataset_name)
