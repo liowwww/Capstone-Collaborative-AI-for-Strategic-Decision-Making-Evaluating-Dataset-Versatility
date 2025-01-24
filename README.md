@@ -59,6 +59,6 @@ If you run into issues, here are some common solutions:
 - Missing Dependencies: Ensure you've installed all the dependencies, including Gradio.
 - API Key Issues: Double-check that your OpenAI API key is correct and active.
 - Dataset or Model Issues: Ensure the correct .csv and .pkl files are uploaded.
-- 
+
 Keep in mind that the LLM can make translation errors because the exact match accuracy of its translations is not 100%, 
 if a question does not work this is also a possibility and a limitation of the current approach.
