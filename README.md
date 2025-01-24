@@ -63,6 +63,6 @@ If you run into issues, here are some common solutions:
 - Dataset or Model Issues: Ensure the correct .csv and .pkl files are uploaded.
 
 Error in the chat interface: 
-- Could be due to the LLM can making a translation error because the exact match accuracy of its translations is not 100%, in this case you should be able to try a different question or reword the previous question in the textbox.
+- Could be due to the LLM making a translation error because the exact match accuracy of its translations is not 100%, in this case you should be able to try a different question or reword the previous question in the textbox.
 - The feature name or row name used is not present in the dataset.
 - The task you asked to be performed cannot be done with the current capabilities of the system.
