@@ -28,13 +28,22 @@ from requirement_3_funcs import get_importance_table, final_importance, ml_to_na
 openai_api_key = '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'
 
 # loading the model pipeline and dataset, will be replaced with interface
+# # pipeline, hard coded for now
+# pipeline_path = r'loan_model_dataset\german_model_grad_tree.pkl'
+# with open(pipeline_path, 'rb') as file:
+#     pipeline = pkl.load(file)
+
+# # dataset, hard coded for now
+# dataset_path = r'loan_model_dataset\cut_loan_dataset.csv'
+# dataset = pd.read_csv(dataset_path)
+
 # pipeline, hard coded for now
-pipeline_path = r'sustainability_model_dataset\sustainability_model.pkl'
+pipeline_path = r'sustainability_model_dataset\co2_model_reduced.pkl'
 with open(pipeline_path, 'rb') as file:
     pipeline = pkl.load(file)
 
 # dataset, hard coded for now
-dataset_path = r'sustainability_model_dataset\Sustainable_Energy_Invest_Forecast_Data_Reduced.csv'
+dataset_path = r'sustainability_model_dataset\co2_dataset_reduced.csv'
 dataset = pd.read_csv(dataset_path)
 
 # extracting the dataset name
@@ -57,7 +66,8 @@ sample_ID = 'Country'
 # Are people younger than 25 vulnerable to bad credit risk?
 # Name the three most important features to determine whether those that are applying for furniture loans are good credit risk.
 # Why did the model predict data point number 993 and is there anything you can do to change it?
-user_query = 'What is the mean value of Gas electricity?'
+# What is the average age of clients who have a telephone?
+user_query = 'Could you describe the data?'
 
 # getting datacontext
 data_context = get_dataframe_schema(dataset, dataset_name)

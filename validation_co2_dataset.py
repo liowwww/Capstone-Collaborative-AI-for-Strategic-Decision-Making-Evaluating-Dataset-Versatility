@@ -112,8 +112,8 @@ for i in range(len(co2_dataset_filter_repr_predictions_list)):
 
 exact_match_accuracy_filter_repr = filter_repr_correct_count / len(co2_dataset_filter_repr_predictions_list)
 average_levenshtein_distance_filter_repr = sum(filter_repr_distance_list) / len(filter_repr_distance_list)
-print(f'EMA of Predictions for Filter Repr CO2 Dataset: {exact_match_accuracy_filter_repr}')
-print(f'Avg Levenshtein Distance between Predictions and Labels for Filter Repr CO2 Dataset: {average_levenshtein_distance_filter_repr} ')
+print(f'EMA of Predictions for Filter Repr CO2 Dataset 0 eg: {exact_match_accuracy_filter_repr}')
+print(f'Avg Levenshtein Distance between Predictions and Labels for Filter Repr CO2 Dataset 0 eg: {average_levenshtein_distance_filter_repr} ')
 print('---------------------------------------------------------------------------------------------------------------')
 
 
@@ -130,8 +130,8 @@ for i in range(len(co2_dataset_filter_repr_predictions_list)):
 
 exact_match_accuracy_filter_repr_lower = filter_repr_correct_count_lower / len(co2_dataset_filter_repr_predictions_list)
 average_levenshtein_distance_filter_repr_lower = sum(filter_repr_distance_list_lower) / len(filter_repr_distance_list_lower)
-print(f'EMA of Predictions for Filter Repr CO2 Dataset all lower: {exact_match_accuracy_filter_repr_lower}')
-print(f'Avg Levenshtein Distance between Predictions and Labels for Filter Repr CO2 Dataset all lower: {average_levenshtein_distance_filter_repr_lower} ')
+print(f'EMA of Predictions for Filter Repr CO2 Dataset all lower 0 eg: {exact_match_accuracy_filter_repr_lower}')
+print(f'Avg Levenshtein Distance between Predictions and Labels for Filter Repr CO2 Dataset all lower 0 eg: {average_levenshtein_distance_filter_repr_lower} ')
 print('---------------------------------------------------------------------------------------------------------------')
 
 
@@ -149,6 +149,6 @@ for i in range(len(co2_dataset_sql_queries_predictions_list)):
 exact_match_accuracy_sql_queries_loan = sql_queries_correct_count / len(co2_dataset_sql_queries_predictions_list)
 average_levenshtein_distance_sql_queries = sum(sql_queries_distance_list) / len(sql_queries_distance_list)
 
-print(f'EMA of Predictions for SQL Queries CO2 Dataset: {exact_match_accuracy_sql_queries_loan}')
-print(f'Avg Levenshtein Distance between Predictions and Labels for SQL Queries CO2 Dataset: {average_levenshtein_distance_sql_queries} ')
+print(f'EMA of Predictions for SQL Queries CO2 Dataset 0 eg: {exact_match_accuracy_sql_queries_loan}')
+print(f'Avg Levenshtein Distance between Predictions and Labels for SQL Queries CO2 Dataset 0 eg: {average_levenshtein_distance_sql_queries} ')
 print('---------------------------------------------------------------------------------------------------------------')
