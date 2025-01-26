@@ -25,7 +25,7 @@ from requirement_2_funcs import get_dataframe_schema, query_to_filter, filter_to
 from requirement_3_funcs import get_importance_table, final_importance, ml_to_natural_language
 
 # openai api key, hard coded for now
-openai_api_key = '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'
+openai_api_key = ''
 
 # pipeline, hard coded for now
 pipeline_path = r'loan_model_dataset\loan_model.pkl'

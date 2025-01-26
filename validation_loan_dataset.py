@@ -32,7 +32,7 @@ loan_dataset_filter_repr_labels_path = r'validation_files\loan_dataset_filter_re
 loan_dataset_sql_queries_labels_path = r'validation_files\loan_dataset_sql_queries_labels.txt'
 
 # openai api key, hard coded for now
-openai_api_key = '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'
+openai_api_key = ''
 
 # extracting the dataset name
 dataset_name = 'the_dataset'
